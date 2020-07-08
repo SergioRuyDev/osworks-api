@@ -1,8 +1,11 @@
 package com.sergioruy.osworksapi.exceptionHandler;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ExceptionResponse {
 
 

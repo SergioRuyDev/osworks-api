@@ -6,7 +6,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import com.sergioruy.osworksapi.domain.model.Cliente;
-import com.sergioruy.osworksapi.repository.ClienteRepository;
+import com.sergioruy.osworksapi.domain.repository.ClienteRepository;
+import com.sergioruy.osworksapi.domain.service.CadastroClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,9 @@ public class ClienteController {
     @Autowired
     private ClienteRepository clienteRepository;
 
+    @Autowired
+    private CadastroClienteService cadastroCliente;
+
     @GetMapping
     public List<Cliente> listar() {
         return clienteRepository.findAll();
@@ -48,7 +52,7 @@ public class ClienteController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Cliente adicionar(@Valid @RequestBody Cliente cliente) {
-       return clienteRepository.save(cliente);
+       return cadastroCliente.salvar(cliente);
     }
 
     @PutMapping("/{clienteId}")
@@ -57,7 +61,8 @@ public class ClienteController {
            return ResponseEntity.notFound().build();
        }
        cliente.setId(clienteId);
-       cliente = clienteRepository.save(cliente);
+       cliente = cadastroCliente.salvar(cliente);
+
        return ResponseEntity.ok(cliente);
     }
 
@@ -67,7 +72,7 @@ public class ClienteController {
             return ResponseEntity.notFound().build();
         }
 
-        clienteRepository.deleteById(clienteId);
+        cadastroCliente.excluir(clienteId);
 
         return ResponseEntity.noContent().build();
     }
