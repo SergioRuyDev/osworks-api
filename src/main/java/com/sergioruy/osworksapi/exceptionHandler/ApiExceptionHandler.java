@@ -16,6 +16,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 
 @ControllerAdvice
@@ -31,7 +32,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         var exceptionResponse = new ExceptionResponse();
         exceptionResponse.setStatus(status.value());
         exceptionResponse.setTitulo(ex.getMessage());
-        exceptionResponse.setDataHora(LocalDateTime.now());
+        exceptionResponse.setDataHora(OffsetDateTime.now());
 
         return handleExceptionInternal(ex, exceptionResponse,  new HttpHeaders(), status, request);
     }
@@ -53,7 +54,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         exceptionResponse.setStatus(status.value());
         exceptionResponse.setTitulo("Um ou mais campos estão inválidos. Faça o preenchimento correto" +
                                             " e tente novamente");
-        exceptionResponse.setDataHora(LocalDateTime.now());
+        exceptionResponse.setDataHora(OffsetDateTime.now());
         exceptionResponse.setCampos(campos);
 
         return super.handleExceptionInternal(ex, exceptionResponse, headers, status, request);
