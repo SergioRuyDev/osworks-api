@@ -1,5 +1,6 @@
 package com.sergioruy.osworksapi.domain.service;
 
+import com.sergioruy.osworksapi.domain.exception.EntidadeNaoEncontradaException;
 import com.sergioruy.osworksapi.domain.exception.NegocioException;
 import com.sergioruy.osworksapi.domain.model.Cliente;
 import com.sergioruy.osworksapi.domain.model.OrdemServico;
@@ -39,7 +40,7 @@ public class GestaoOrdemServicoService {
 
     public Comentario adicionarComantario(Long ordemServicoId, String descricao) {
         OrdemServico ordemServico = ordemServicoRepository.findById(ordemServicoId)
-                .orElseThrow(() -> new NegocioException("Ordem de serviço não encontrada"));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Ordem de serviço não encontrada"));
 
         Comentario comentario = new Comentario();
         comentario.setDataEnvio(OffsetDateTime.now());
