@@ -1,5 +1,6 @@
 package com.sergioruy.osworksapi.domain.model;
 
+import com.sergioruy.osworksapi.domain.exception.NegocioException;
 import com.sergioruy.osworksapi.model.Comentario;
 
 import javax.persistence.*;
@@ -109,5 +110,22 @@ public class OrdemServico {
     @Override
     public int hashCode() {
         return getId().hashCode();
+    }
+
+    public boolean podeSerFinalizada() {
+        return StatusOrdemServico.ABERTA.equals(getStatus());
+    }
+
+    public boolean naoPodeSerFinalizada() {
+        return !podeSerFinalizada();
+    }
+
+    public void finalizar() {
+        if (naoPodeSerFinalizada()) {
+            throw new NegocioException("Ordem de serviço não pode ser finalizada");
+        }
+
+        setStatus(StatusOrdemServico.FINALIZADA);
+        setDataFinalizacao(OffsetDateTime.now());
     }
 }

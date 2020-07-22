@@ -55,6 +55,11 @@ public class OrdemServicoController {
         return ResponseEntity.notFound().build();
     }
 
+    @PutMapping("/{ordemServicoId}/finalizacao")
+    public void finalizar(Long ordemServicoId) {
+
+    }
+
     private OrdemServicoModel toModel(OrdemServico ordemServico) {
         return modelMapper.map(ordemServico, OrdemServicoModel.class);
     }
