@@ -28,6 +28,15 @@ public class Cliente {
     @Size(max = 20)
     private String telefone;
 
+    public Cliente(Long id, String nome, String email, String telefone) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.telefone = telefone;
+    }
+
+    public Cliente() {
+    }
 
     public Long getId() {
         return id;
