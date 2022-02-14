@@ -3,6 +3,7 @@ package com.sergioruy.osworksapi.domain.repository;
 import com.sergioruy.osworksapi.domain.model.Cliente;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -31,6 +32,7 @@ class ClienteRepositoryTest {
     }
 
 
+    @DisplayName("JUnit teste do metodo find by email.")
     @Test
     public void givenClienteEmail_whenFindByEmail_thenReturnClienteObject() {
 
@@ -41,7 +43,7 @@ class ClienteRepositoryTest {
         cliente.setTelefone("99999999");
         underTest.save(cliente);
         //when
-        Cliente clientDb = underTest.findAllByEmail(cliente.getEmail());
+        Cliente clientDb = underTest.findByEmail(cliente.getEmail());
 
         //then
         assertThat(clientDb).isNotNull();
