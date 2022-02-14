@@ -15,8 +15,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.*;
 
 import java.util.Optional;
 
@@ -87,6 +87,21 @@ class CadastroClienteServiceTest {
         verify(clienteRepository, never()).save(any(Cliente.class));
     }
 
+    @DisplayName("Teste do metodo excluir em cenário positivo")
+    @Test
+    public void givenClienteObject_whenCallMethodExcluir_thenStatusOk() {
 
+        //given
+        long clienteId = 1L;
+
+        willDoNothing().given(clienteRepository).deleteById(1L);
+
+        //when
+        underTest.excluir(1L);
+
+        //then
+        verify(clienteRepository, times(1)).deleteById(clienteId);
+
+    }
 
 }
